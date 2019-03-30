@@ -32,7 +32,7 @@ namespace CSharp_Windows_Shutdown
             {
                 Name = name; Value = value;
             }
-                public override string ToString()
+            public override string ToString()
             {
                 return Name;
             }
@@ -42,20 +42,20 @@ namespace CSharp_Windows_Shutdown
         {
 
 
-        InitializeComponent();
+            InitializeComponent();
             // ComboBox Items
             cb1.Items.Add(new Item("Benutzer wechseln", 1));
             cb1.Items.Add(new Item("Abmelden", 2));
             cb1.Items.Add(new Item("Energie sparen", 3));
             cb1.Items.Add(new Item("Herunterfahren", 4));
             cb1.Items.Add(new Item("Neu starten", 5));
-            
+
             // ComboBox Pre-Selected
             cb1.SelectedIndex = 3;
             desc.Text = "Alle Apps werden geschlossen, und der PC wird ausgeschaltet.";
 
 
-            
+
 
         }
 
@@ -103,7 +103,7 @@ namespace CSharp_Windows_Shutdown
         private static void SignOutTimedEvent(Object source, ElapsedEventArgs e)
         {
             SignOutPC();
-        } 
+        }
 
         // HERUNTERFAHREN FUNKTION //
         public static void ShutdownPC()
@@ -183,6 +183,9 @@ namespace CSharp_Windows_Shutdown
 
         private void Btn_close_Click(object sender, RoutedEventArgs e)
         {
+            if (desc.Text == "Der Vorgang wurde erfolgreich abgebrochen")
+                Close();
+
             if (desc.Text == "Der PC wird in 10 Sekunden heruntergefahren. Drücken sie auf 'Abbrechen' um den Vorgang abzubrechen oder nochmals auf 'OK' um den PC direkt heruterzufahren.")
                 cancel_shutdown();
 
@@ -192,8 +195,21 @@ namespace CSharp_Windows_Shutdown
             if (desc.Text == "Sie werden in 7 Sekunden abgemeldet. Drücken sie auf 'Abbrechen' um den Vorgang abzubrechen oder nochmals auf 'OK' um den sich direkt abzumelden.")
                 cancel_signout();
 
-            else
+            if (desc.Text == "Wechselt Benutzer, ohne Anwendungen zu schließen.")
                 Close();
+
+            if (desc.Text == "Alle Anwendungen werden geschlossen, und Sie werden abgemeldet")
+                Close();
+
+            if (desc.Text == "Der PC bleibt eingeschaltet, verbraucht aber wenig Strom. Apps bleiben geöffnet, sodass Sie beim Reaktivieren des PCs sofort dort weitermachen könne, wo Sie aufgehört haben.")
+                Close();
+
+            if (desc.Text == "Alle Apps werden geschlossen, und der PC wird ausgeschaltet.")
+                Close();
+
+            if (desc.Text == "Alle Apps werden geschlossen, und der PC wird aus- und dann wieder eingeschaltet.")
+                Close();
+
         }
 
         private void Cb1_DropDownClosed(object sender, EventArgs e)
@@ -267,5 +283,5 @@ namespace CSharp_Windows_Shutdown
 
         }
     }
-        }
-    
+}
+
